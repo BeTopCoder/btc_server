@@ -42,6 +42,8 @@ namespace http
 
             std::shared_ptr<char> m_buffer_;
 
+            std::shared_ptr<char> m_RspBuffer_;
+
             sessionMgr &m_sessionMgr_;
         };
 

@@ -12,6 +12,7 @@ namespace http
             , m_socket_(io_service_)
             , m_sessionMgr_(sessionMgr_)
             , m_buffer_(new char[8192], [](char *pcTmp) {delete[] pcTmp;})
+            , m_RspBuffer_(new char[8192], [](char*pcTmp) {delete[] pcTmp;})
         {
         }
 
@@ -63,7 +64,25 @@ namespace http
 
         void session::do_write()
         {
+            auto self(shared_from_this());
+            m_socket_.async_write_some(boost::asio::buffer(m_RspBuffer_.get(), 8192),
+                [this, self](boost::system::error_code ec, std::size_t ulLength)
+            {
+                if (!ec)
+                {
+                    /* ·¢ËÍ³É¹¦ */
 
+                }
+                else if (boost::asio::error::operation_aborted != ec)
+                {
+                    m_sessionMgr_.stop(self);
+                }
+                else
+                {
+                    cout << "something wrong!" << endl;
+                    exit(-1);
+                }
+            });
         }
 
     }
