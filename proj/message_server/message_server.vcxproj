@@ -11,8 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{0C13F7FF-CA6D-419B-9C46-B998ECAE4359}</ProjectGuid>
-    <RootNamespace>httpserver</RootNamespace>
+    <ProjectGuid>{CA8A7C0E-7A14-4937-A03A-FF178B0ACAAF}</ProjectGuid>
+    <RootNamespace>message_server</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -46,12 +46,9 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>..\..\thirdpart\include\boost-1_58;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>..\..\thirdpart\lib\boost-1.58;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libboost_system-vc140-mt-gd-1_58.lib;libboost_date_time-vc140-mt-gd-1_58.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -69,17 +66,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\httpserver\main.cpp" />
-    <ClCompile Include="..\..\src\httpserver\reply.cpp" />
-    <ClCompile Include="..\..\src\httpserver\server.cpp" />
-    <ClCompile Include="..\..\src\httpserver\session.cpp" />
-    <ClCompile Include="..\..\src\httpserver\session_mgr.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\src\httpserver\reply.h" />
-    <ClInclude Include="..\..\src\httpserver\server.h" />
-    <ClInclude Include="..\..\src\httpserver\session.h" />
-    <ClInclude Include="..\..\src\httpserver\session_mgr.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
