@@ -70,17 +70,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\httpserver\main.cpp" />
-    <ClCompile Include="..\..\src\httpserver\reply.cpp" />
-    <ClCompile Include="..\..\src\httpserver\server.cpp" />
-    <ClCompile Include="..\..\src\httpserver\session.cpp" />
-    <ClCompile Include="..\..\src\httpserver\session_mgr.cpp" />
+    <ClCompile Include="..\..\src\login_server\main.cpp" />
+    <ClCompile Include="..\..\src\login_server\reply.cpp" />
+    <ClCompile Include="..\..\src\login_server\server.cpp" />
+    <ClCompile Include="..\..\src\login_server\session.cpp" />
+    <ClCompile Include="..\..\src\login_server\session_mgr.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\src\httpserver\reply.h" />
-    <ClInclude Include="..\..\src\httpserver\server.h" />
-    <ClInclude Include="..\..\src\httpserver\session.h" />
-    <ClInclude Include="..\..\src\httpserver\session_mgr.h" />
+    <ClInclude Include="..\..\src\login_server\reply.h" />
+    <ClInclude Include="..\..\src\login_server\server.h" />
+    <ClInclude Include="..\..\src\login_server\session.h" />
+    <ClInclude Include="..\..\src\login_server\session_mgr.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
