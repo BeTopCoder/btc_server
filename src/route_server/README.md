@@ -1,0 +1,2 @@
+# route_server
+route_server主要负责message_server相互间的数据交互。

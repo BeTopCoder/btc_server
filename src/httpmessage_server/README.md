@@ -1,0 +1,2 @@
+# httpmessage_server
+httpmessage主要负责接收http请求并处理的服务器，对外提供http服务器，后续可以做web IM。
