@@ -47,9 +47,8 @@ private:
     UCHAR       m_ucSubVer     = UC_SUB_VERSION;    /* 协议次版本号 */
     UCHAR       m_ucByteOrder  = 0;                 /* 字节序 */
     UCHAR       m_ucReverse    = 0;                 /* 保留 */
-    ULONG_32    m_ulMsgCmd     = 0;                 /* 消息命令行 */
-    ULONG_32    m_ulMsgID      = 0;                 /* 消息ID */
     ULONG_32    m_ulMsgType    = 0;                 /* 消息类型 */
+    ULONG_32    m_ulMsgID      = 0;                 /* 消息ID */
     ULONG_32    m_ulMsgSeq     = 0;                 /* 消息序号 */
 
     std::shared_ptr<BYTE> pMsgHeader;
