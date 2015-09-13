@@ -9,6 +9,7 @@ btc_server是BeTopCoder组织写的一个IM系统。当前开发人员：stone-j
 ## 当前使用的第三方库
 * 1.boost asio
 * 2.protocolBuf
+* 3.libpgxx
 
 ## 运行方法
 * 1.先下载代码
