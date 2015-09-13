@@ -9,3 +9,8 @@ btc_server是BeTopCoder组织写的一个IM系统。当前开发人员：stone-j
 ## 当前使用的第三方库
 * 1.boost asio
 * 2.protocolBuf
+
+## 运行方法
+* 1.先下载代码
+* 2.执行cp.bat脚本拷贝所需的第三方库
+* 3.进入proj\btc_server文件夹中，然后打开解决方案btc_server.sln
