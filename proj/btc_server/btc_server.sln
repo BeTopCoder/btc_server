@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "include", "include", "{70AC2EA6-253B-44B4-8936-428281724EBA}"
 	ProjectSection(SolutionItems) = preProject
 		..\..\src\include\common.hpp = ..\..\src\include\common.hpp
+		..\..\src\include\logging.hpp = ..\..\src\include\logging.hpp
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dbproxy_server", "..\dbproxy_server\dbproxy_server.vcxproj", "{00E4A3D1-D5D7-4A1A-9F6D-01CF53CAEC0F}"

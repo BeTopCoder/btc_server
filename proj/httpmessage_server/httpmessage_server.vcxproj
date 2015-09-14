@@ -13,6 +13,9 @@
   <ItemGroup>
     <ClCompile Include="..\..\src\httpmessage_server\httpmessage_server.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\httpmessage_server\httpmessage_server.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{89C2EC1D-B55D-4526-A336-5C80B1ED1F91}</ProjectGuid>
     <RootNamespace>httpmessage_server</RootNamespace>
@@ -49,9 +52,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>..\..\thirdpart\include\boost-1_58;..\..\src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;ENABLE_LOGGER;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>..\..\thirdpart\lib\boost-1.58;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libboost_system-vc140-mt-gd-1_58.lib;libboost_chrono-vc140-mt-gd-1_58.lib;libboost_filesystem-vc140-mt-gd-1_58.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
