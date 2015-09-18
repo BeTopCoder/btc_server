@@ -15,6 +15,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\httpmessage_server\httpmessage_server.h" />
+    <ClInclude Include="..\..\src\httpmessage_server\http_connection.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{89C2EC1D-B55D-4526-A336-5C80B1ED1F91}</ProjectGuid>

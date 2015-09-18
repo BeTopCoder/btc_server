@@ -24,6 +24,8 @@ namespace httpmessage_server
     private:
         boost::asio::io_service &m_io_service_;
         boost::asio::ip::tcp::acceptor m_acceptor_;
+        http_connection_ptr m_http_connection_ptr_;
+        http_connection_manager m_http_connection_manager_;
 
         unsigned short m_usPort;
         std::string m_strAddress_;
