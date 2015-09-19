@@ -69,7 +69,7 @@ namespace httpmessage_server
 
     void http_server::start()
     {
-        m_http_connection_ptr_ = std::make_shared<http_connction>(std::ref(m_io_service_), std::ref(m_http_connection_manager_));
+        m_http_connection_ptr_ = std::make_shared<http_connction>(std::ref(m_io_service_), std::ref(*this), std::ref(m_http_connection_manager_));
         m_acceptor_.async_accept(m_http_connection_ptr_->getSocket(), m_http_connection_ptr_->getEndpoint(), [this](boost::system::error_code ec)
         {
             if (!m_acceptor_.is_open() || ec)
@@ -100,5 +100,13 @@ int main(int argc, char **argv)
 {
     INIT_LOGGER("example.log");
     LOG_ERR << "123";
+    boost::asio::io_service io_service_;
+
+    using namespace httpmessage_server;
+    http_server http_server_(io_service_, 10000);
+    http_server_.init();
+    http_server_.start();
+    io_service_.run();
+
     return 0;
 }

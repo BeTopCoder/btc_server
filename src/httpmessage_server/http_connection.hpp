@@ -17,60 +17,16 @@ namespace httpmessage_server
         , public boost::noncopyable
     {
     public:
-        explicit http_connction(boost::asio::io_service &io_service_, http_server &http_server_, http_connection_manager &http_connection_manager_)
-            : m_io_service_(io_service_)
-            , m_socket_(m_io_service_)
-            , m_http_server_(http_server_)
-            , m_abort(false)
-            , m_http_connection_manager_(http_connection_manager_)
-        {
-
-        }
+        explicit http_connction(boost::asio::io_service &io_service_, http_server &http_server_, http_connection_manager &http_connection_manager_);
 
     public:
-        void start()
-        {
-            m_request_.consume(m_request_.size());
+        void start();
 
-            boost::system::error_code ec;
-            m_socket_.set_option(boost::asio::ip::tcp::no_delay(true), ec);
-            if (ec)
-            {
-                LOG_ERR << "http_connection:start, Set Options to nodelay, error message: " << ec.message();
-                throw std::exception("error:set Options");
-            }
-            auto self = shared_from_this();
-            boost::asio::async_read(m_socket_, m_request_, [this, self](boost::system::error_code ec, std::size_t length) {
-                if (ec || m_abort)
-                {
-                    m_http_connection_manager_.stop(shared_from_this());
-                    return;
-                }
+        void stop();
 
-                /* ¸´ÖÆhttpÍ·»º³åÇø */
-                std::vector<char> buffer_;
-                buffer_.resize(length + 1);
-                buffer_[length] = 0;
-                m_request_.sgetn(&buffer_[0], length);
-            });
-        }
+        boost::asio::ip::tcp::socket& getSocket();
 
-        void stop()
-        {
-            boost::system::error_code ec;
-            m_abort = true;
-            m_socket_.close(ec);
-        }
-
-        boost::asio::ip::tcp::socket& getSocket()
-        {
-            return m_socket_;
-        }
-
-        boost::asio::ip::tcp::endpoint& getEndpoint()
-        {
-            return m_endpoint_;
-        }
+        boost::asio::ip::tcp::endpoint& getEndpoint();
 
     protected:
     private:

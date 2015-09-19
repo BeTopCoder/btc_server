@@ -14,6 +14,9 @@
     <ClCompile Include="..\..\src\httpmessage_server\httpmessage_server.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\httpmessage_server\http_connection.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\httpmessage_server\httpmessage_server.h">
