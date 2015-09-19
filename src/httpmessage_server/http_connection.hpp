@@ -19,10 +19,16 @@ namespace httpmessage_server
     public:
         explicit http_connction(boost::asio::io_service &io_service_, http_server &http_server_, http_connection_manager &http_connection_manager_);
 
+        ~http_connction();
+
     public:
         void start();
 
         void stop();
+
+        void handle_read_headers(boost::system::error_code ec, std::size_t length);
+
+        void handle_read_body(boost::system::error_code ec, std::size_t length);
 
         boost::asio::ip::tcp::socket& getSocket();
 

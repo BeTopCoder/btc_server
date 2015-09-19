@@ -1,5 +1,6 @@
 #include "http_connection.hpp"
 #include "logging.hpp"
+#include <boost/bind.hpp>
 
 namespace httpmessage_server
 {
@@ -11,6 +12,11 @@ namespace httpmessage_server
         , m_http_connection_manager_(http_connection_manager_)
     {
 
+    }
+
+    http_connction::~http_connction()
+    {
+        LOG_ERR << "~http_connection";
     }
 
     void http_connction::start()
@@ -25,22 +31,39 @@ namespace httpmessage_server
             throw std::exception("error:set Options");
         }
         LOG_ERR << "http_connection start";
-        auto self = shared_from_this();
-        boost::asio::async_read(m_socket_, m_request_, [this, self](boost::system::error_code ec, std::size_t length) {
-            if (ec || m_abort)
-            {
-                LOG_ERR << ec.message();
-                m_http_connection_manager_.stop(shared_from_this());
-                return;
-            }
+        boost::asio::async_read_until(m_socket_, m_request_, "\r\n\r\n", boost::bind(&http_connction::handle_read_headers, shared_from_this(), _1, _2));
+    }
 
-            /* 复制http头缓冲区 */
-            std::vector<char> buffer_;
-            buffer_.resize(length + 1);
-            buffer_[length] = 0;
-            m_request_.sgetn(&buffer_[0], length);
-            LOG_ERR << *(buffer_.begin());
-        });
+    void http_connction::handle_read_headers(boost::system::error_code ec, std::size_t length)
+    {
+        if (ec || m_abort)
+        {
+            LOG_ERR << ec.message();
+            m_http_connection_manager_.stop(shared_from_this());
+            return;
+        }
+
+        LOG_ERR << "==============";
+
+        /* 复制http头缓冲区 */
+        std::vector<char> buffer_;
+        buffer_.resize(length + 1);
+        buffer_[length] = 0;
+        m_request_.sgetn(&buffer_[0], length);
+        LOG_ERR << *(buffer_.begin());
+        return;
+    }
+
+    void http_connction::handle_read_body(boost::system::error_code ec, std::size_t length)
+    {
+        /* 差错处理 */
+        if (ec || m_abort)
+        {
+            LOG_ERR << ec.message();
+            m_http_connection_manager_.stop(shared_from_this());
+            return;
+        }
+        return;
     }
 
     void http_connction::stop()
