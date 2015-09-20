@@ -1,13 +1,6 @@
 #ifndef __HTTP_CONNECTION_H__
 #define __HTTP_CONNECTION_H__
 
-#include <boost/noncopyable.hpp>
-#include <boost/enable_shared_from_this.hpp>
-#include <boost/asio.hpp>
-#include <memory>
-#include <mutex>
-#include <set>
-
 namespace httpmessage_server
 {
     class http_server;
@@ -39,7 +32,9 @@ namespace httpmessage_server
         boost::asio::io_service &m_io_service_;
         boost::asio::ip::tcp::socket m_socket_;
         boost::asio::ip::tcp::endpoint m_endpoint_;
-        boost::asio::streambuf m_request_;
+        boost::asio::streambuf m_recvBuffer_;
+        request m_request_;
+        request_parser m_request_parser;
         http_server &m_http_server_;
         bool m_abort;
 

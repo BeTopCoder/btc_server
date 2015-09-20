@@ -1,13 +1,20 @@
 #include <boost/bind.hpp>
 #include <boost/integer_traits.hpp>
 #include <boost/shared_ptr.hpp>
+#include <boost/asio.hpp>
+#include <boost/function.hpp>
+#include <boost/thread.hpp>
 
 #include <iostream>
+#include <mutex>
+#include <set>
 using namespace std;
 
+#include "http_helper.hpp"
 #include "logging.hpp"
 #include "http_connection.hpp"
 #include "httpmessage_server.h"
+
 
 namespace httpmessage_server
 {
@@ -93,6 +100,32 @@ namespace httpmessage_server
         m_http_connection_manager_.stopAll();
         return;
     }
+
+    bool http_server::handle_request(request &request_, http_connection_ptr conn)
+    {
+        LOG_ERR << request_.uri;
+        /* 根据URI调用不同的处理 */
+        const std::string &uri = request_.uri;
+        boost::shared_lock<boost::shared_mutex> l(m_callback_funcs_mutex_);
+        auto iter = m_callback_funcs_.find(uri);
+        if (iter == m_callback_funcs_.end())
+        {
+            return false;
+        }
+        iter->second(request_, conn, boost::ref(m_http_connection_manager_));
+        return true;
+    }
+
+    bool http_server::add_handle(const std::string &uri, http_request_callback cb)
+    {
+        boost::shared_lock<boost::shared_mutex> l(m_callback_funcs_mutex_);
+        if (m_callback_funcs_.find(uri) != m_callback_funcs_.end())
+        {
+            return false;
+        }
+        m_callback_funcs_[uri] = cb;
+        return true;
+    }
 }
 
 
@@ -103,7 +136,7 @@ int main(int argc, char **argv)
     boost::asio::io_service io_service_;
 
     using namespace httpmessage_server;
-    http_server http_server_(io_service_, 10000);
+    http_server http_server_(io_service_, 10002);
     http_server_.init();
     http_server_.start();
     io_service_.run();

@@ -25,5 +25,8 @@
     <ClInclude Include="..\..\src\httpmessage_server\http_connection.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\httpmessage_server\http_helper.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
