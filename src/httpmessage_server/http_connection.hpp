@@ -23,6 +23,10 @@ namespace httpmessage_server
 
         void handle_read_body(boost::system::error_code ec, std::size_t length);
 
+        void write_response(const std::string &body);
+
+        void handle_write(boost::system::error_code ec, std::size_t length);
+
         boost::asio::ip::tcp::socket& getSocket();
 
         boost::asio::ip::tcp::endpoint& getEndpoint();
@@ -33,6 +37,7 @@ namespace httpmessage_server
         boost::asio::ip::tcp::socket m_socket_;
         boost::asio::ip::tcp::endpoint m_endpoint_;
         boost::asio::streambuf m_recvBuffer_;
+        boost::asio::streambuf m_sendBuffer_;
         request m_request_;
         request_parser m_request_parser;
         http_server &m_http_server_;

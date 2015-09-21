@@ -147,6 +147,31 @@ namespace httpmessage_server
         return;
     }
 
+    void http_connction::write_response(const std::string &body)
+    {
+        std::ostream out(&m_sendBuffer_);
+
+        out << "HTTP/" << m_request_.http_version_major << "." << m_request_.http_version_minor << " 200 OK\r\n";
+        out << "Content-Type: application/json\r\n";
+        out << "Content-Length: " << body.length() << "\r\n";
+        out << "\r\n";
+
+        out << body;
+
+        boost::asio::async_write(m_socket_, m_sendBuffer_,
+            boost::bind(&http_connction::handle_write, shared_from_this(), _1, _2)
+            );
+    }
+
+    void http_connction::handle_write(boost::system::error_code ec, std::size_t length)
+    {
+        if (ec || m_abort || !m_request_.keep_alive)
+        {
+            m_http_connection_manager_.stop(shared_from_this());
+            return;
+        }
+    }
+
     void http_connction::stop()
     {
         boost::system::error_code ec;
