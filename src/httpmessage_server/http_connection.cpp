@@ -45,7 +45,6 @@ namespace httpmessage_server
             LOG_ERR << "http_connection:start, Set Options to nodelay, error message: " << ec.message();
             throw std::exception("error:set Options");
         }
-        LOG_ERR << "http_connection start";
         boost::asio::async_read_until(m_socket_, m_recvBuffer_, "\r\n\r\n", boost::bind(&http_connction::handle_read_headers, shared_from_this(), _1, _2));
     }
 
@@ -57,8 +56,6 @@ namespace httpmessage_server
             m_http_connection_manager_.stop(shared_from_this());
             return;
         }
-
-        LOG_ERR << "==============";
 
         /* ¸´ÖÆhttpÍ·»º³åÇø */
         std::vector<char> buffer_;
@@ -175,7 +172,6 @@ namespace httpmessage_server
     void http_connction::stop()
     {
         boost::system::error_code ec;
-        LOG_ERR << "1234455";
         m_abort = true;
         m_socket_.close(ec);
     }

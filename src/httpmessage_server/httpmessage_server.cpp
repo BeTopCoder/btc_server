@@ -4,6 +4,7 @@
 #include <boost/asio.hpp>
 #include <boost/function.hpp>
 #include <boost/thread.hpp>
+#include <boost/core/ref.hpp>
 
 #include <iostream>
 #include <mutex>
@@ -104,6 +105,8 @@ namespace httpmessage_server
     bool http_server::handle_request(request &request_, http_connection_ptr conn)
     {
         LOG_ERR << request_.uri;
+
+
         /* 根据URI调用不同的处理 */
         const std::string &uri = request_.uri;
         boost::shared_lock<boost::shared_mutex> l(m_callback_funcs_mutex_);
@@ -134,6 +137,11 @@ int main(int argc, char **argv)
     INIT_LOGGER("example.log");
     LOG_ERR << "123";
     boost::asio::io_service io_service_;
+    boost::async(boost::launch::async, []() {
+        getchar();
+        LOG_ERR << "12345";
+    });
+    LOG_ERR << "123456";
 
     using namespace httpmessage_server;
     http_server http_server_(io_service_, 10002);
